@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Food Consumption Predictor</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #e0f2f1, #ffffff);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: #333;
+    }
+    .container {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 420px;
+      width: 100%;
+      transition: transform 0.2s ease;
+    }
+    .container:hover {
+      transform: translateY(-3px);
+    }
+    h1 {
+      text-align: center;
+      color: #00695c;
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      margin: 0.5rem 0 0.2rem;
+      font-weight: 600;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 0.6rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-bottom: 1rem;
+      transition: border-color 0.2s;
+    }
+    input[type="number"]:focus {
+      border-color: #00897b;
+      outline: none;
+    }
+    button {
+      width: 100%;
+      background: #00897b;
+      color: #fff;
+      border: none;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #00695c;
+    }
+    .result {
+      margin-top: 1.2rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: center;
+      color: #2e7d32;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Food Consumption Predictor</h1>
+    <form id="predictForm">
+      <label for="income">Family Income ($)</label>
+      <input type="number" id="income" name="income" step="0.01" required />
+
+      <label for="size">Family Size</label>
+      <input type="number" id="size" name="size" step="1" required />
+
+      <button type="submit">Predict</button>
+    </form>
+    <div class="result" id="result"></div>
+    <div class="footer">
+      &copy; 2025 Food Consumption Analysis
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("predictForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const income = parseFloat(document.getElementById("income").value);
+      const size = parseFloat(document.getElementById("size").value);
+      
+      if (isNaN(income) || isNaN(size)) {
+        document.getElementById("result").textContent = "Please enter valid numbers.";
+        return;
+      }
+
+      // Updated Regression Formula:
+      // Food = -1.118 + (0.148 * Income) + (0.7931 * Family Size)
+      const prediction = -1.118 + (0.148 * income) + (0.7931 * size);
+
+      document.getElementById("result").textContent = 
+        "Predicted Food Consumption: $" + prediction.toFixed(2);
+    });
+  </script>
+</body>
+</html>
+
